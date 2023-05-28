@@ -13,7 +13,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class CustomersComponent implements OnInit{
   customers!:Observable<Array<Customer>>;
   errorMessage!:object;
-  searchformGroup!:FormGroup | undefined;
+  searchformGroup:FormGroup | undefined;
 
   constructor(private customerService:CustomerService, private fb:FormBuilder) {
   }
@@ -22,17 +22,20 @@ export class CustomersComponent implements OnInit{
     this.searchformGroup=this.fb.group({
       keyword : this.fb.control("")
     });
-    this.customers=this.customerService.getCustomers().pipe(
-      catchError(err=>{
-        this.errorMessage=err.message;
-        return throwError(err);
-      })
-    );
+    this.handleSearchCustomers();
 
   }
 
 
   handleSearchCustomers() {
+
+    let kw=this.searchformGroup?.value.keyword;
+    this.customers=this.customerService.searchCustomers(kw).pipe(
+      catchError(err=>{
+        this.errorMessage=err.message;
+        return throwError(err);
+      })
+    );
 
   }
 }
