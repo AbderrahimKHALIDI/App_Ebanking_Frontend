@@ -17,10 +17,7 @@ export class NavbarComponent implements OnInit {
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
-    const dropdownMenu = document.querySelector('#dropdownNavbar');
-    if (dropdownMenu !== null) {
-      dropdownMenu.classList.toggle('hidden');
-    }
+
   }
 
   toggleAccountMenu() {
