@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Customer} from "../model/customer.model";
 import {CustomerService} from "../services/customer.service";
 import {data} from "autoprefixer";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-customer',
@@ -11,7 +12,7 @@ import {data} from "autoprefixer";
 })
 export class NewCustomerComponent  implements OnInit{
 newCustomerFormGroup!:FormGroup;
-constructor(private fb:FormBuilder,private customerService:CustomerService) {
+constructor(private fb:FormBuilder,private customerService:CustomerService, private router:Router) {
 }
 ngOnInit() {
   this.newCustomerFormGroup=this.fb.group({
@@ -34,11 +35,22 @@ ngOnInit() {
         if (parentElement) {
           parentElement.appendChild(successAlert);
         }
+
+        // Ajouter la classe de durée de 2 secondes
+        successAlert.classList.add('duration-2000');
+
+        // Supprimer l'alerte après 2 secondes
+        setTimeout(() => {
+          successAlert.remove();
+        }, 2000);
+        this.newCustomerFormGroup.reset();
+       // this.router.navigateByUrl("/customers");
       },
       error: err => {
         console.log(err);
       }
     });
   }
+
 
 }
