@@ -1,0 +1,139 @@
+<ng-container *ngIf="accountObservable | async as accountDetails; else failureOrLading">
+  <section class="antialiased bg-gray-100 text-gray-600 h-85 p-5 " x-data="app">
+    <div class="grid grid-cols-6 gap-4">
+      <!-- Table -->
+      <div class="col-span-6 sm:col-span-4 ">
+        <div class="w-full max-w-4xl mx-auto bg-white  rounded-3xl border border-gray-200">
+          <header class="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
+            <div class="font-semibold text-blue-800"># {{ accountDetails.accountId }}</div>
+            <div class="font-semibold text-gray-800 mx-auto"><span class="font-normal text-gray-400 mx-4">Balance :</span>
+              {{ accountDetails.balance | number : "1.2-2" }}
+              <span class="font-normal text-gray-400 mx-2">MAD</span></div>
+          </header>
+
+
+
+          <div class="overflow-x-auto p-3">
+            <table class="table-auto w-full">
+              <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+              <tr>
+                <th></th>
+                <th class="p-2">
+                  <div class="font-semibold text-left">ID</div>
+                </th>
+                <th class="p-2">
+                  <div class="font-semibold text-left">Operation Date</div>
+                </th>
+                <th class="p-2">
+                  <div class="font-semibold text-left">Type</div>
+                </th>
+                <th class="p-2">
+                  <div class="font-semibold text-left">Amount</div>
+                </th>
+                <th class="p-2">
+                  <div class="font-semibold text-center">Action</div>
+                </th>
+              </tr>
+              </thead>
+
+              <tbody class="text-sm divide-y divide-gray-100">
+
+              <tr *ngFor="let operation of accountDetails.accountOperationDTOS">
+                <td class="p-2">
+                  <input type="checkbox" class="w-5 h-5" value="id-1"
+                  />
+                </td>
+                <td class="p-2">
+                  <div class="font-medium text-gray-800">
+                    {{ operation.id }}
+                  </div>
+                </td>
+                <td class="p-2">
+                  <div class="text-left font-medium text-yellow-500">{{
+                    operation.operationDate | date : "dd-MM-yyyy &bull; HH:mm"
+                    }}</div>
+                </td>
+                <td *ngIf="operation.type == 'DEBIT'" class="p-2">
+                  <div class="text-left ">
+                    <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                    Debit
+                  </div>
+                </td>
+                <td *ngIf="operation.type == 'CREDIT'" class="p-2">
+                  <div class="text-left ">
+                    <i class="fas fa-arrow-down text-red-500 mr-4"></i>
+                   Credit
+                  </div>
+                </td>
+                <td class="p-2">
+                  <div class="text-left font-medium text-green-500">
+                    {{ operation.amount | number : "1.2-2" }} MAD
+                  </div>
+                </td>
+                <td class="p-2">
+                  <div class="flex justify-center">
+                    <button>
+                      <svg class="w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1"
+                           fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                           xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                        </path>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="col-span-6 sm:col-span-2">
+        <div class="flex flex-col justify-center ">
+          <div class="relative sm:max-w-xl sm:mx-auto">
+            <div class="relative px-4 py-6 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-6">
+              <div class="max-w-md mx-auto">
+                <div class="flex items-center space-x-4">
+                  <div class="h-10 w-10 bg-yellow-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">i</div>
+                  <div class="block pl-2 font-semibold text-xl self-start text-gray-700">
+                    <h2 class="leading-relaxed text-2xl">Create an Event</h2>
+                    <p class="text-sm text-gray-500 font-normal leading-relaxed">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                  </div>
+                </div>
+                <div class="divide-y divide-gray-200">
+                  <div class="py-3 text-base leading-6 space-y-2 text-gray-700 sm:text-lg sm:leading-7">
+                    <div class="flex flex-col">
+                      <label class="leading-loose">Event Title</label>
+                      <input type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event title">
+                    </div>
+                    <div class="flex flex-col">
+                      <label class="leading-loose">Event Subtitle</label>
+                      <input type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Optional">
+                    </div>
+                    <div class="flex flex-col">
+                      <label class="leading-loose">Event Description</label>
+                      <input type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Optional">
+                    </div>
+                  </div>
+                  <div class="pt-3 flex items-center space-x-4">
+                    <button class="flex justify-center items-center w-full text-gray-900 px-4 py-2 rounded-md focus:outline-none">
+                      <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
+                    </button>
+                    <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-2 rounded-md focus:outline-none">Create</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</ng-container>
+<ng-template #failureOrLading>
+  <!-- Le contenu du template reste inchangé -->
+</ng-template>
