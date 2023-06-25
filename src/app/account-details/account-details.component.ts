@@ -59,7 +59,7 @@ export class AccountDetailsComponent implements OnInit{
     if (operationType == 'DEBIT') {
       this.accountsService.debit(this.accountId, amount, description).subscribe({
         next: () => {
-          alert('Success Credit');
+          alert('Success Debit  ');
           this.operationFromGroup.reset();
           this.getAccounts();
         },
@@ -70,7 +70,7 @@ export class AccountDetailsComponent implements OnInit{
     } else if (operationType == 'CREDIT') {
       this.accountsService.credit(this.accountId, amount, description).subscribe({
         next: () => {
-          alert('Success Debit');
+          alert('Success Credit');
           this.operationFromGroup.reset();
           this.getAccounts();
         },

@@ -24,14 +24,14 @@ export class AccountService {
   }
   public debit(accountId : string, amount : number, description:string){
     let data={accountId : accountId, amount : amount, description : description}
-    return this.http.post(environment.hostUrlBak+"/accounts/debit",data);
+    return this.http.post(environment.hostUrlBak+"/accounts-operation/debit",data);
   }
   public credit(accountId : string, amount : number, description:string){
     let data={accountId : accountId, amount : amount, description : description}
-    return this.http.post(environment.hostUrlBak+"/accounts/credit",data);
+    return this.http.post(environment.hostUrlBak+"/accounts-operation/credit",data);
   }
   public transfer(accountSource: string,accountDestination: string, amount : number, description:string){
     let data={accountSource, accountDestination, amount, description }
-    return this.http.post(environment.hostUrlBak+"/accounts/transfer",data);
+    return this.http.post(environment.hostUrlBak+"/accounts-operation/transfer",data);
   }
 }
