@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  hostUrlBak: 'http://localhost:8085'
+  hostUrlBak: 'https://ebanking.onrender.com/'
 };
